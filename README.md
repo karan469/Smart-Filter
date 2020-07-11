@@ -22,7 +22,7 @@ There are 3 parts to this project:
 6. detectron2
 7. PIL
 
-## Demo
+## Examples
 
 ### Background Removal
 
@@ -55,3 +55,12 @@ Right now, Face Filter is used primarily for selfies thus, the achived results a
 Image 1             |  Image 2 | Image 3
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/1.png)  |  ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/2.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/not%20smiling.png)
+
+## Smart Filters examples
+
+Example 1             |  Example 2
+:-------------------------:|:-------------------------:
+![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/supportpride.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter2.jpg)
+
+Example 1 is created by giving 'rainbow,texture' as parameters to background selection.
+> Insert code snippet.
