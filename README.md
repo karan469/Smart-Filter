@@ -10,7 +10,7 @@ Smart filter is a useful tool to interact and share pictures across social media
 
 There are 3 parts to this project:
 - Semantic Segmentation using [detectron2](https://github.com/facebookresearch/detectron2)
-- Face detection using transfer learning.(/face
+- Face detection using transfer learning on detectron2 itself.
 - Smile detection on detected face.
 
 # Pre-requisites
