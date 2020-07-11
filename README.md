@@ -60,7 +60,7 @@ Image 1             |  Image 2 | Image 3
 
 Example 1             |  Example 2
 :-------------------------:|:-------------------------:
-![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/supportpride.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter2.jpg)
+![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/supportpride.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Final%20Ensemble/index3_low_res.png)
 
 Example 1 is created by giving 'rainbow,texture' as parameters to background selection.
 > Insert code snippet.
