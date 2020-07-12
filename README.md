@@ -27,7 +27,23 @@ There are 3 parts to this project:
 ### Background Removal
 
 > This API can be used to remove background and place either a fixed preset, or another aesthetically good looking background using parameters given by user.
-> Insert code snippet here.
+
+```python
+path = '/content/'
+#returns necessary attrbutes and results from model output
+im, human_masks, boxes = return_attributes(path+'me.jpg')
+print('Masks calculated')
+
+# list of singular human images
+final_images = bound_human_boxes(boxes)
+
+# final mask => NxM bool matrix : value is 1 if human is present on the pixel
+final_mask = return_union_mask(im, human_masks)
+print('Final Mask created')
+
+# Remove background and show the resultant image 
+cv2_imshow(remove_bg(im, final_mask))
+```
 
 Original Image             |  Background removal using Semantic Segmentation
 :-------------------------:|:-------------------------:
@@ -37,8 +53,8 @@ Original Image             |  Background removal using Semantic Segmentation
 
 > This model is created using 510 images with 1600 instances on faces in the [dataset](https://www.kaggle.com/dataturks/face-detection-in-images)
 > Thus, the learning is not as rigorous as it could be. But I have achieved an **F1 score of 0.702** which was good enough.
-> Insert model quality metrics.
-> Insert code snippet here.
+> Insert model quality metrics. Insert code snippet.
+
 
 Image 1             |  Image 2
 :-------------------------:|:-------------------------:
@@ -50,7 +66,13 @@ Right now, Face Filter is used primarily for selfies thus, the achived results a
 
 > Selfies taken are inherently full of features which can be used to automate creating appropriate face filters. For example, facial features can be used as a good way to describe a selfie. I have created only smile detection so far.
 > Insert model quality metrics.
-> Insert code snippet here.
+
+```python
+smile_predictor = SmileModel('/content/drive/My Drive/Colab Notebooks/smiledetection.h5')
+temp = cv2.resize(temp, dsize=(64, 64))
+temp = temp.reshape(1, 64, 64, 3)
+probability = smile_predictor.predict(temp)
+```
 
 Image 1             |  Image 2 | Image 3
 :-------------------------:|:-------------------------:|:-------------------------:
