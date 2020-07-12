@@ -47,7 +47,7 @@ cv2_imshow(remove_bg(im, final_mask))
 
 Original Image             |  Background removal using Semantic Segmentation
 :-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Semantic%20Segmentation/person_selfie.jpg?token=AH47IOWYYRBYV67ISUQVXI27CQRI2)  |  ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter.jpg)
+![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Semantic%20Segmentation/person_selfie.jpg?token=AH47IOWYYRBYV67ISUQVXI27CQRI2)  |  ![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Semantic%20Segmentation/unsplashFilter.jpg?token=AH47IOXTVKDX5SDU44XTI3S7CQR2S)
 
 ### Face detection using transfer learning on detectron2
 
@@ -58,7 +58,7 @@ Thus, the learning is not as rigorous as it could be. But I have achieved an **F
 
 Image 1             |  Image 2
 :-------------------------:|:-------------------------:
-![](https://github.com/CRekkaran/Smart-Filter/blob/master/Face%20detection%20using%20Detectron2/index.png)  |  ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Face%20detection%20using%20Detectron2/index1.png)
+![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Face%20detection%20using%20Detectron2/index.png?token=AH47IOWZNMHCQHASBXYODH27CQR4Y)  |  ![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Face%20detection%20using%20Detectron2/index1.png?token=AH47IOWWOIWGQR23KJQCIXS7CQRZM)
 
 Right now, Face Filter is used primarily for selfies thus, the achived results are satisfactory.
 
@@ -77,13 +77,13 @@ probability = smile_predictor.predict(temp)
 
 Image 1             |  Image 2 | Image 3
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/1.png)  |  ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/2.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/not%20smiling.png)
+![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Smile%20Detection/1.png?token=AH47IOWXEKPCP5UG7RRQQN27CQRZM)  |  ![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Smile%20Detection/2.png?token=AH47IOW2QS7NHB2RQALMHD27CQRZM) | ![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Smile%20Detection/not%20smiling.png?token=AH47IOXXIZQ3XHO2G5JMA5C7CQRZM)
 
 ## Smart Filters examples
 
 Example 1             |  Example 2
 :-------------------------:|:-------------------------:
-![](https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/supportpride.png) | ![](https://github.com/CRekkaran/Smart-Filter/blob/master/Final%20Ensemble/index3_low_res.png)
+![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Semantic%20Segmentation/supportpride.png?token=AH47IOTQQMS2UMOWXQD35GS7CQSFM) | ![](https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Final%20Ensemble/index3_low_res.png?token=AH47IOUYZLQSSECP5MRNE327CQSGK)
 
 Example 1 is created by giving 'rainbow,texture' as parameters to background selection.
 > Insert code snippet.
