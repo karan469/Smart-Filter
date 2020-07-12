@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Smart-filter by CRekkaran</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Smart-filter</h1>
+      <h2 class="project-tagline">This repository aims to create a mobile image segmentation model and incorporate background according to the human emotion</h2>
+      <a href="https://github.com/CRekkaran/Smart-Filter" class="btn">View on GitHub</a>
+      <a href="https://github.com/CRekkaran/Smart-Filter/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/CRekkaran/Smart-Filter/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="smart-filter" class="anchor" href="#smart-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Smart-Filter</h1>
+<p>This repository aims to create a mobile image segmentation model and incorporate background according to the human emotion</p>
+<p>Aim of this project is to create <strong>end-to-end pipeline</strong> from engineering machine learning model to deployement of the same. This is achieved using <em>Docker</em> and <em>Flask</em> as microservice to host the learned model on an EC2 instance. Seperate models are trained on <a href="https://cocodataset.org/">COCOdataset</a> using detectron2 on pytorch and other datasets using <em>tensorflow-gpu==2.2.0.</em></p>
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+<p>Smart filter uses machine <strong>learning to curate image specific filters and background</strong>. There will be little to no input of user in deciding the final image.
+Smart filter is a useful tool to interact and share pictures across social media. 100s of thousands of images are uploaded every single minute. These picures take many forms such as stories, posts, comments, stickers and more.</p>
+<p>There are 3 parts to this project:</p>
+<ul>
+<li>Semantic Segmentation using <a href="https://github.com/facebookresearch/detectron2">detectron2</a>
+</li>
+<li>Face detection using transfer learning on <em>detectron2</em> itself.</li>
+<li>Smile detection on detected face.</li>
+</ul>
+<h2>
+<a id="pre-requisites" class="anchor" href="#pre-requisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-requisites</h2>
+<ol>
+<li>pytorch</li>
+<li>cuda 10.1</li>
+<li>tensorflow</li>
+<li>torchvision</li>
+<li>numpy</li>
+<li>detectron2</li>
+<li>PIL</li>
+</ol>
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
+<h3>
+<a id="background-removal" class="anchor" href="#background-removal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background Removal</h3>
+<p>This API can be used to remove background and place either a fixed preset, or another aesthetically good looking background using parameters given by user.</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-s1">path</span> <span class="pl-c1">=</span> <span class="pl-s">'/content/'</span>
+<span class="pl-c">#returns necessary attrbutes and results from model output</span>
+<span class="pl-s1">im</span>, <span class="pl-s1">human_masks</span>, <span class="pl-s1">boxes</span> <span class="pl-c1">=</span> <span class="pl-en">return_attributes</span>(<span class="pl-s1">path</span><span class="pl-c1">+</span><span class="pl-s">'me.jpg'</span>)
+<span class="pl-en">print</span>(<span class="pl-s">'Masks calculated'</span>)
+
+<span class="pl-c"># list of singular human images</span>
+<span class="pl-s1">final_images</span> <span class="pl-c1">=</span> <span class="pl-en">bound_human_boxes</span>(<span class="pl-s1">boxes</span>)
+
+<span class="pl-c"># final mask =&gt; NxM bool matrix : value is 1 if human is present on the pixel</span>
+<span class="pl-s1">final_mask</span> <span class="pl-c1">=</span> <span class="pl-en">return_union_mask</span>(<span class="pl-s1">im</span>, <span class="pl-s1">human_masks</span>)
+<span class="pl-en">print</span>(<span class="pl-s">'Final Mask created'</span>)
+
+<span class="pl-c"># Remove background and show the resultant image </span>
+<span class="pl-en">cv2_imshow</span>(<span class="pl-en">remove_bg</span>(<span class="pl-s1">im</span>, <span class="pl-s1">final_mask</span>))</pre></div>
+<table>
+<thead>
+<tr>
+<th align="center">Original Image</th>
+<th align="center">Background removal using Semantic Segmentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/CRekkaran/Smart-Filter/master/Semantic%20Segmentation/person_selfie.jpg?token=AH47IOWYYRBYV67ISUQVXI27CQRI2" alt=""></td>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter.jpg" alt=""></td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="face-detection-using-transfer-learning-on-detectron2" class="anchor" href="#face-detection-using-transfer-learning-on-detectron2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Face detection using transfer learning on detectron2</h3>
+<p>This model is created using 510 images with 1600 instances on faces in the <a href="https://www.kaggle.com/dataturks/face-detection-in-images">dataset</a>
+Thus, the learning is not as rigorous as it could be. But I have achieved an <strong>F1 score of 0.702</strong> which was good enough.</p>
+<blockquote>
+<p>Insert model quality metrics. Insert code snippet.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Image 1</th>
+<th align="center">Image 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Face%20detection%20using%20Detectron2/index.png" alt=""></td>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Face%20detection%20using%20Detectron2/index1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>Right now, Face Filter is used primarily for selfies thus, the achived results are satisfactory.</p>
+<h3>
+<a id="smile-detection" class="anchor" href="#smile-detection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Smile Detection</h3>
+<p>Selfies taken are inherently full of features which can be used to automate creating appropriate face filters. For example, facial features can be used as a good way to describe a selfie. I have created only smile detection so far.<br>
+The final model predicts on a given face. You can use either a haar frontal face cascade or another pretrained CNN model to localise the faces in image.</p>
+<blockquote>
+<p>Insert model quality metrics.</p>
+</blockquote>
+<div class="highlight highlight-source-python"><pre><span class="pl-s1">smile_predictor</span> <span class="pl-c1">=</span> <span class="pl-v">SmileModel</span>(<span class="pl-s">'/content/drive/My Drive/Colab Notebooks/smiledetection.h5'</span>)
+<span class="pl-s1">temp</span> <span class="pl-c1">=</span> <span class="pl-s1">cv2</span>.<span class="pl-en">resize</span>(<span class="pl-s1">temp</span>, <span class="pl-s1">dsize</span><span class="pl-c1">=</span>(<span class="pl-c1">64</span>, <span class="pl-c1">64</span>))
+<span class="pl-s1">temp</span> <span class="pl-c1">=</span> <span class="pl-s1">temp</span>.<span class="pl-en">reshape</span>(<span class="pl-c1">1</span>, <span class="pl-c1">64</span>, <span class="pl-c1">64</span>, <span class="pl-c1">3</span>)
+<span class="pl-s1">probability</span> <span class="pl-c1">=</span> <span class="pl-s1">smile_predictor</span>.<span class="pl-en">predict</span>(<span class="pl-s1">temp</span>)</pre></div>
+<table>
+<thead>
+<tr>
+<th align="center">Image 1</th>
+<th align="center">Image 2</th>
+<th align="center">Image 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/1.png" alt=""></td>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/2.png" alt=""></td>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Smile%20Detection/not%20smiling.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="smart-filters-examples" class="anchor" href="#smart-filters-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Smart Filters examples</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Example 1</th>
+<th align="center">Example 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Semantic%20Segmentation/supportpride.png" alt=""></td>
+<td align="center"><img src="https://github.com/CRekkaran/Smart-Filter/blob/master/Final%20Ensemble/index3_low_res.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>Example 1 is created by giving 'rainbow,texture' as parameters to background selection.</p>
+<blockquote>
+<p>Insert code snippet.</p>
+</blockquote>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/CRekkaran/Smart-Filter">Smart-filter</a> is maintained by <a href="https://github.com/CRekkaran">CRekkaran</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
