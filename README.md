@@ -26,7 +26,7 @@ There are 3 parts to this project:
 
 ### Background Removal
 
-> This API can be used to remove background and place either a fixed preset, or another aesthetically good looking background using parameters given by user.
+This API can be used to remove background and place either a fixed preset, or another aesthetically good looking background using parameters given by user.
 
 ```python
 path = '/content/'
@@ -51,8 +51,8 @@ Original Image             |  Background removal using Semantic Segmentation
 
 ### Face detection using transfer learning on detectron2
 
-> This model is created using 510 images with 1600 instances on faces in the [dataset](https://www.kaggle.com/dataturks/face-detection-in-images)
-> Thus, the learning is not as rigorous as it could be. But I have achieved an **F1 score of 0.702** which was good enough.
+This model is created using 510 images with 1600 instances on faces in the [dataset](https://www.kaggle.com/dataturks/face-detection-in-images)
+Thus, the learning is not as rigorous as it could be. But I have achieved an **F1 score of 0.702** which was good enough.
 > Insert model quality metrics. Insert code snippet.
 
 
@@ -64,7 +64,8 @@ Right now, Face Filter is used primarily for selfies thus, the achived results a
 
 ### Smile Detection
 
-> Selfies taken are inherently full of features which can be used to automate creating appropriate face filters. For example, facial features can be used as a good way to describe a selfie. I have created only smile detection so far.
+Selfies taken are inherently full of features which can be used to automate creating appropriate face filters. For example, facial features can be used as a good way to describe a selfie. I have created only smile detection so far.  
+The final model predicts on a given face. You can use either a haar frontal face cascade or another pretrained CNN model to localise the faces in image.
 > Insert model quality metrics.
 
 ```python
