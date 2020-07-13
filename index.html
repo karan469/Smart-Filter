@@ -19,7 +19,7 @@
     </section>
 
     <section class="main-content">
-      <p>Aim of this project is to create <strong>end-to-end pipeline</strong> from engineering machine learning model to deployement of the same. This is achieved using <em>Docker</em> and <em>Flask</em> as microservice to host the learned model on an EC2 instance. Seperate models are trained on <a href="https://cocodataset.org/">COCOdataset</a> using detectron2 on pytorch and other datasets using <em>tensorflow-gpu==2.2.0.</em></p>
+      <p>Aim of this project is to create <strong>end-to-end pipeline</strong> from engineering machine learning model to deployement of the same. This is achieved using <em>Docker</em> and <em>Flask</em> as microservice to host the learned model on an EC2 instance. Seperate models are trained on <a href="https://cocodataset.org/">COCOdataset</a> using detectron2 on pytorch and other datasets using <em>tensorflow-gpu.</em></p>
 <h2>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 <p>Smart filter uses machine <strong>learning to curate image specific filters and background</strong>. There will be little to no input of user in deciding the final image.
@@ -38,9 +38,7 @@ Smart filter is a useful tool to interact and share pictures across social media
 <li>cuda 10.1</li>
 <li>tensorflow</li>
 <li>torchvision</li>
-<li>numpy</li>
 <li>detectron2</li>
-<li>PIL</li>
 </ol>
 <h2>
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
@@ -77,11 +75,26 @@ Smart filter is a useful tool to interact and share pictures across social media
 </table>
 <h3>
 <a id="face-detection-using-transfer-learning-on-detectron2" class="anchor" href="#face-detection-using-transfer-learning-on-detectron2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Face detection using transfer learning on detectron2</h3>
-<p>This model is created using 510 images with 1600 instances on faces in the <a href="https://www.kaggle.com/dataturks/face-detection-in-images">dataset</a>
+<p>This model is created using 500 images with 1100 instances on faces in the <a href="https://www.kaggle.com/dataturks/face-detection-in-images">dataset</a>
 Thus, the learning is not as rigorous as it could be. But I have achieved an <strong>F1 score of 0.702</strong> which was good enough.</p>
 <blockquote>
-<p>Insert model quality metrics. Insert code snippet.</p>
+<p>Insert model quality metrics.</p>
 </blockquote>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">return_face_detection_predictor</span>(<span class="pl-s1">filename</span>):
+    <span class="pl-k">from</span> <span class="pl-s1">detectron2</span>.<span class="pl-s1">config</span> <span class="pl-k">import</span> <span class="pl-s1">get_cfg</span>
+
+    <span class="pl-v">MODEL_PATH</span> <span class="pl-c1">=</span> <span class="pl-s">'COCO-Detection/retinanet_R_101_FPN_3x.yaml'</span>
+    <span class="pl-s1">cfg</span> <span class="pl-c1">=</span> <span class="pl-en">get_cfg</span>()
+    <span class="pl-s1">cfg</span>.<span class="pl-en">merge_from_file</span>(<span class="pl-s1">model_zoo</span>.<span class="pl-en">get_config_file</span>(<span class="pl-v">MODEL_PATH</span>))
+    <span class="pl-s1">cfg</span>.<span class="pl-v">MODEL</span>.<span class="pl-v">WEIGHTS</span> <span class="pl-c1">=</span> <span class="pl-s1">filename</span>
+    <span class="pl-s1">cfg</span>.<span class="pl-v">MODEL</span>.<span class="pl-v">RETINANET</span>.<span class="pl-v">NUM_CLASSES</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span>
+    <span class="pl-s1">cfg</span>.<span class="pl-v">MODEL</span>.<span class="pl-v">RETINANET</span>.<span class="pl-v">SCORE_THRESH_TEST</span> <span class="pl-c1">=</span> <span class="pl-c1">0.50</span>
+    
+    <span class="pl-k">return</span> <span class="pl-v">DefaultPredictor</span>(<span class="pl-s1">cfg</span>)
+
+<span class="pl-s1">face_predictor</span> <span class="pl-c1">=</span> <span class="pl-en">return_face_detection_predictor</span>(<span class="pl-s">'/content/drive/My Drive/Colab Notebooks/checkpoint_face.pth'</span>)
+<span class="pl-s1">face_detection_output</span> <span class="pl-c1">=</span> <span class="pl-en">face_predictor</span>(<span class="pl-s1">im</span>)
+<span class="pl-s1">pred_boxes</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">array</span>(<span class="pl-s1">face_detection_output</span>[<span class="pl-s">'instances'</span>].<span class="pl-s1">_fields</span>[<span class="pl-s">'pred_boxes'</span>].<span class="pl-s1">tensor</span>.<span class="pl-en">cpu</span>(), <span class="pl-s1">dtype</span><span class="pl-c1">=</span><span class="pl-s">'int32'</span>)</pre></div>
 <table>
 <thead>
 <tr>
@@ -144,6 +157,12 @@ The final model predicts on a given face. You can use either a Haar features bas
 <blockquote>
 <p>Insert code snippet.</p>
 </blockquote>
+<h2>
+<a id="suggestions" class="anchor" href="#suggestions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions</h2>
+<ol>
+<li>Point me in the direction of a good dataset for human facial features detection, and face detection (Bigger the better). Currently, I am using transfer learning for face detection, on a small dataset of 500 images and 1100 faces only, which is giving only satisfactory results.</li>
+<li>There are some big possible improvements that could be done, such as multi-task learning. This might reduce latency in providing results, by a huge margin. Let me know your thoughts on that!</li>
+</ol>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/karan469/Smart-Filter">Smart Filter</a> is maintained by <a href="https://github.com/karan469">karan469</a>.</span>
