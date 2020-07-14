@@ -24,21 +24,20 @@
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 <p>Smart filter uses machine <strong>learning to curate image specific filters and background</strong>. There will be little to no input of user in deciding the final image.
 Smart filter is a useful tool to interact and share pictures across social media. 100s of thousands of images are uploaded every single minute. These picures take many forms such as stories, posts, comments, stickers and more.</p>
-<p>There are 3 parts to this project:</p>
+<p>There are 2 parts to this project:</p>
 <ul>
-<li>Semantic Segmentation using <a href="https://github.com/facebookresearch/detectron2">detectron2</a>
+<li>Semantic Segmentation and using <a href="https://github.com/facebookresearch/detectron2">Detectron2 - Facebook AI</a>
 </li>
-<li>Face detection using transfer learning on <em>detectron2</em> itself.</li>
 <li>Smile detection on detected face.</li>
 </ul>
 <h2>
-<a id="pre-requisites" class="anchor" href="#pre-requisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-requisites</h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
 <ol>
+<li>detectron2</li>
 <li>pytorch</li>
 <li>cuda 10.1</li>
 <li>tensorflow</li>
 <li>torchvision</li>
-<li>detectron2</li>
 </ol>
 <h2>
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
@@ -181,12 +180,12 @@ The final model predicts on a given face. You can use either a Haar features bas
 </tr>
 </tbody>
 </table>
-<p>Example 2 is created by giving 'rainbow,texture' as parameters to background selection.</p>
+<p>Last image is created by giving 'rainbow,texture' as parameters to background selection.</p>
 <blockquote>
 <p>Insert code snippet.</p>
 </blockquote>
 <h2>
-<a id="suggestions" class="anchor" href="#suggestions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions</h2>
+<a id="id-️-suggestions-" class="anchor" href="#id-%EF%B8%8F-suggestions-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>I'd <g-emoji class="g-emoji" alias="heart" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png">❤️</g-emoji> suggestions ..</h2>
 <ol>
 <li>Point me in the direction of a good dataset for human facial features detection, and face detection (Bigger the better). Currently, I am using transfer learning for face detection, on a small dataset of 500 images and 1100 faces only, which is giving only satisfactory results.</li>
 <li>There are some big possible improvements that could be done, such as multi-task learning. This might reduce latency in providing results, by a huge margin. Let me know your thoughts on that!</li>
