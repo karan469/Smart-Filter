@@ -8,7 +8,7 @@ Smart filter uses machine **learning to curate image specific filters and backgr
 Smart filter is a useful tool to interact and share pictures across social media. 100s of thousands of images are uploaded every single minute. These picures take many forms such as stories, posts, comments, stickers and more.
 
 There are 3 parts to this project:
-- Semantic Segmentation using [detectron2](https://github.com/facebookresearch/detectron2)
+- Semantic Segmentation using [detectron2 - Facebook AI](https://github.com/facebookresearch/detectron2)
 - Face detection using transfer learning on *detectron2* itself.
 - Smile detection on detected face.
 
