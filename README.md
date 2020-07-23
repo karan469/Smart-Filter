@@ -46,7 +46,7 @@ cv2_imshow(remove_bg(im, final_mask))
 
 Original Image             |  Background removal using Semantic Segmentation
 :-------------------------:|:-------------------------:
-![](https://github.com/karan469/Smart-Filter/blob/master/Semantic%20Segmentation/person_selfie.jpg)  |  ![](https://github.com/karan469/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter.jpg)
+![](https://github.com/karan469/Smart-Filter/blob/master/Semantic%20Segmentation/person_selfie.jpg)  |  ![](https://github.com/karan469/Smart-Filter/blob/master/Semantic%20Segmentation/unsplashFilter_x.jpg)
 
 ### Face detection using transfer learning on detectron2
 
