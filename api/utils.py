@@ -57,8 +57,10 @@ def feature_2(detector, filename, catagory):
 	'''
 	im, human_masks, boxes = detector.return_attributes(filename)
 	final_mask = detector.return_union_mask(im, human_masks)
-
-	bg = loadImage('https://source.unsplash.com/1080x1296/?'+catagory)
+	print('Segment mask calculated')
+	
+	bg = loadImage('https://source.unsplash.com/2000x2000/?'+catagory)
+	print('Unsplash image loaded')
 
 	WHITE_BORDER_FRACTION = 0.07
 	for i in range(final_mask.shape[0]):

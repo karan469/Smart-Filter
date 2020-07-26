@@ -3,7 +3,7 @@ from detectron import detectron
 from facedetector import facedetector
 import utils
 
-import random
+import random, string
 import cv2
 
 ##################### FUNCTION CALLING #####################
@@ -31,7 +31,17 @@ print('C 4')
 print('C 5')
 
 #-------------------- Background addition --------------------#
-DetectronObj = detectron()
-# utils.createThumbnail('me_winter.jpg')
-new_image = utils.feature_2(DetectronObj, './snowme.png', 'leaves,green')
-cv2.imwrite('./x_back_snowme_1.png', new_image)
+# Returns a random alphanumeric string of length 'length'
+def random_key(length):
+	return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(length))
+	
+def addbackground(filename, params):
+	DetectronObj = detectron()
+	# utils.createThumbnail('snowme.jpg')
+	new_image = utils.feature_2(DetectronObj, filename, params)
+	temp = filename.split('/')
+	temp[-1] = '_'.join(params.split(','))+'_'+random_key(5)+'_'+temp[-1]
+	new_filename = '/'.join(temp)
+	cv2.imwrite(new_filename, new_image)
+
+addbackground('./snowme.png', 'flowers')
