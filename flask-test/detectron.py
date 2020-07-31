@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import tensorflow as tf
 import cv2
 import json
@@ -6,7 +6,7 @@ import codecs
 import requests
 import urllib
 import numpy as np
-import pandas as pd 
+#import pandas as pd 
 from PIL import Image
 from io import BytesIO
 import itertools
