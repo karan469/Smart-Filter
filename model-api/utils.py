@@ -59,7 +59,8 @@ def feature_2(detector, filename, catagory):
 	final_mask = detector.return_union_mask(im, human_masks)
 	print('Segment mask calculated')
 	
-	bg = loadImage('https://source.unsplash.com/2000x2000/?'+catagory)
+	bg = loadImage('https://source.unsplash.com/1500x1500/?'+catagory)
+	# bg = cv2.imread('./background.jpeg')
 	print('Unsplash image loaded')
 
 	WHITE_BORDER_FRACTION = 0.07
@@ -73,3 +74,81 @@ def feature_2(detector, filename, catagory):
 				else:
 					im[i][j] = [255, 255, 255]
 	return im	
+
+def feature_3(segment_detector, face_detector, smile_detector, filename, catagory):
+	'''
+		Add smile related caption to the image
+	'''
+	WHITE_BORDER_FRACTION = 0.07
+
+	im, human_masks, boxes = segment_detector.return_attributes(filename)
+	final_mask = segment_detector.return_union_mask(im, human_masks)
+	
+	print('Segment mask calculated')
+	
+	# bg = loadImage('https://source.unsplash.com/1500x1500/?'+catagory)
+	
+	bg = cv2.imread('./background.jfif')
+
+	print('Unsplash image loaded')
+
+	############################### ###############################
+	pred_boxes = face_detector.return_pred_boxes(im)
+
+	print('Face boxes calculated')
+
+	num_faces = pred_boxes.shape[0]
+	prob_smiling_faces = []
+
+	for i in pred_boxes:
+		temp = im[i[1]:i[3],i[0]:i[2],:]
+		proba = smile_detector._return_smile_prob(temp)
+		prob_smiling_faces.append(proba[0][0]) # Smiling probability of each person
+
+	prob_smiling_faces = np.array(prob_smiling_faces)
+	index_smile_most = np.argmax(prob_smiling_faces) # Person smiling most
+	smiling_prob_final = prob_smiling_faces[index_smile_most] # Smiling probability of person smiling most
+
+	face_final = pred_boxes[index_smile_most]
+
+	print('Smiling prediction: ', smiling_prob_final)
+
+	isSmiling = smiling_prob_final > 0.5
+	if isSmiling:
+		textOnImage = 'Smiling: ' + str('%.2f' % proba[0][0])
+		textOnImage = '#KEEPSMILING ;)'
+	else:
+		textOnImage = 'Not Smiling: ' + str('%.2f' % proba[0][1])
+		textOnImage = '#OFFMOOOOD'
+	############################### ###############################
+
+	print('Removing background and adding preset')
+	for i in range(final_mask.shape[0]):
+		for j in range(final_mask.shape[1]):
+			
+			if(final_mask[i][j]==0):
+				if(i>int(final_mask.shape[0]*WHITE_BORDER_FRACTION) and i<int((1-WHITE_BORDER_FRACTION)*final_mask.shape[0]) and j>int(final_mask.shape[1]*WHITE_BORDER_FRACTION) and j<int((1-WHITE_BORDER_FRACTION)*final_mask.shape[1])):
+					red = 255*(1-(j/final_mask.shape[1]))
+					im[i][j] = bg[i,j,:]
+				else:
+					im[i][j] = [255, 255, 255]
+
+	print(im.shape[1]*WHITE_BORDER_FRACTION)
+
+	font				   = cv2.FONT_HERSHEY_SIMPLEX
+	bottomLeftCornerOfText = (100,700)
+	fontScale			  = 3
+	fontColor			  = (10,0,250)
+	lineType			   = 3
+
+	cv2.putText(
+		im,
+		textOnImage, 
+		bottomLeftCornerOfText, 
+		font, 
+		fontScale,
+		fontColor,
+		lineType
+	)
+
+	return im

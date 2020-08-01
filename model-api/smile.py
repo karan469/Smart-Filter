@@ -1,3 +1,7 @@
+'''
+	Note: This api requires keras==2.3.1. In case this version or whole keras get depreciated,
+	please update the api to tensorflow.keras
+'''
 from facedetector import facedetector
 # import tensorflow as tf
 import keras
@@ -38,6 +42,15 @@ class smiledetector(object):
 
 		self.model = model
 
+	def _return_smile_prob(self, im):
+		if(self.model==None):
+			self._load_model()
+
+		im = cv2.resize(im, (75, 75))
+		im = im/255.
+		res = self.model.predict(np.array([im]))
+		return res
+
 	def _infer_image(self, filename):
 		if(self.model==None):
 			self._load_model()
@@ -61,4 +74,4 @@ class smiledetector(object):
 		
 if __name__ == '__main__':
 	detector = smiledetector('../../resnet50_smiledetection.h5')
-	print(detector._infer_image('./test0.png'))
+	print(detector._infer_image('./test1.png'))
