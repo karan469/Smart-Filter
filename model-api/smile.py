@@ -51,6 +51,14 @@ class smiledetector(object):
 		else:
 			return ('Not Smiling: '+ str(res[0][0]))
 
+	def _infer_image_batch(self, batch):
+		if(self.model==None):
+			self._load_model()
+
+		res = self.model.predict(batch)
+
+		return res
+		
 if __name__ == '__main__':
 	detector = smiledetector('../../resnet50_smiledetection.h5')
 	print(detector._infer_image('./test0.png'))
