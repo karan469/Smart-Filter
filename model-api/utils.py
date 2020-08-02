@@ -93,34 +93,24 @@ def feature_3(segment_detector, face_detector, smile_detector, filename, catagor
 	print('Unsplash image loaded')
 
 	############################### ###############################
-	pred_boxes = face_detector.return_pred_boxes(im)
+	# pred_boxes = face_detector.return_pred_boxes(im)
 
-	print('Face boxes calculated')
+	# print('Face boxes calculated')
 
-	num_faces = pred_boxes.shape[0]
-	prob_smiling_faces = []
+	# num_faces = pred_boxes.shape[0]
+	# prob_smiling_faces = []
 
-	for i in pred_boxes:
-		temp = im[i[1]:i[3],i[0]:i[2],:]
-		proba = smile_detector._return_smile_prob(temp)
-		prob_smiling_faces.append(proba[0][0]) # Smiling probability of each person
+	# for i in pred_boxes:
+	# 	temp = im[i[1]:i[3],i[0]:i[2],:]
+	# 	proba = smile_detector._return_smile_prob(temp)
+	# 	prob_smiling_faces.append(proba[0][0]) # Smiling probability of each person
 
-	prob_smiling_faces = np.array(prob_smiling_faces)
-	index_smile_most = np.argmax(prob_smiling_faces) # Person smiling most
-	smiling_prob_final = prob_smiling_faces[index_smile_most] # Smiling probability of person smiling most
+	# prob_smiling_faces = np.array(prob_smiling_faces)
+	# index_smile_most = np.argmax(prob_smiling_faces) # Person smiling most
+	# smiling_prob_final = prob_smiling_faces[index_smile_most] # Smiling probability of person smiling most
 
-	face_final = pred_boxes[index_smile_most]
+	# face_final = pred_boxes[index_smile_most]
 
-	print('Smiling prediction: ', smiling_prob_final)
-
-	isSmiling = smiling_prob_final > 0.5
-	if isSmiling:
-		textOnImage = 'Smiling: ' + str('%.2f' % proba[0][0])
-		textOnImage = '#KEEPSMILING ;)'
-	else:
-		textOnImage = 'Not Smiling: ' + str('%.2f' % proba[0][1])
-		textOnImage = '#OFFMOOOOD'
-	############################### ###############################
 
 	print('Removing background and adding preset')
 	for i in range(final_mask.shape[0]):
@@ -134,6 +124,19 @@ def feature_3(segment_detector, face_detector, smile_detector, filename, catagor
 					im[i][j] = [255, 255, 255]
 
 	print(im.shape[1]*WHITE_BORDER_FRACTION)
+
+	smiling_prob_final = smile_detector._return_smile_prob(im)[0][1]
+
+	print('Smiling prediction: ', smiling_prob_final)
+
+	isSmiling = smiling_prob_final > 0.5
+	if isSmiling:
+		textOnImage = 'Smiling: ' + str('%.2f' % smiling_prob_final)
+		textOnImage = '#KEEPSMILING ;)'
+	else:
+		textOnImage = 'Not Smiling: ' + str('%.2f' % (1-smiling_prob_final))
+		textOnImage = '#OFFMOOOOD'
+	############################### ###############################
 
 	font				   = cv2.FONT_HERSHEY_SIMPLEX
 	bottomLeftCornerOfText = (100,700)

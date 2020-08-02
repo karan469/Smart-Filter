@@ -74,4 +74,4 @@ class smiledetector(object):
 		
 if __name__ == '__main__':
 	detector = smiledetector('../../resnet50_smiledetection.h5')
-	print(detector._infer_image('./test1.png'))
+	print(detector._infer_image('./test2.jpg'))

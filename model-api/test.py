@@ -61,7 +61,7 @@ def textOnImage(filename, params):
 	new_filename = '/'.join(temp)
 
 	print('Writing image to '+new_filename)
-	
+
 	cv2.imwrite(new_filename, new_image)
 
-textOnImage('./snowme.png', 'red,background')
+textOnImage('./test2.jpg', 'red,background')
