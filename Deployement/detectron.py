@@ -1,24 +1,15 @@
-#import pandas as pd
-# import tensorflow as tf
 import cv2
-# import json
-# import codecs
-# import requests
 import urllib
 import numpy as np
-#import pandas as pd 
 from PIL import Image
 from io import BytesIO
 import itertools
-# import random
 import torch, torchvision
-# import tensorflow as tf
-# import os
 
 from detectron2.modeling import build_model
 from detectron2.engine import DefaultPredictor
 from detectron2 import model_zoo
-from detectron2.utils.visualizer import Visualizer
+# from detectron2.utils.visualizer import Visualizer
 from detectron2.utils.visualizer import  GenericMask
 from detectron2.data import MetadataCatalog
 # import detectron2
@@ -59,22 +50,25 @@ class detectron(object):
 
 		# storing attributes
 		predictions = output["instances"].to("cpu")
-		boxes = predictions.pred_boxes if predictions.has("pred_boxes") else None
-		scores = predictions.scores if predictions.has("scores") else None
+		# boxes = predictions.pred_boxes if predictions.has("pred_boxes") else None
+		# scores = predictions.scores if predictions.has("scores") else None
 		classes = predictions.pred_classes if predictions.has("pred_classes") else None
-		# keypoints = predictions.pred_keypoints if predictions.has("pred_keypoints") else None
 
-		v = Visualizer(im[:, :, ::-1], MetadataCatalog.get('coco_2017_train'), scale=0.3)
+		# v = Visualizer(im[:, :, ::-1], MetadataCatalog.get('coco_2017_train'), scale=0.3)
+		# print('v dims: ', v.output.height, v.output.width)
+		print('im dims: ', im.shape)
+
 		if predictions.has("pred_masks"):
 				masks = np.asarray(predictions.pred_masks)
-				masks = [GenericMask(x, v.output.height, v.output.width) for x in masks]
+				masks = [GenericMask(x, im.shape[0], im.shape[1]) for x in masks]
 		else:
 			masks = None
 
 		humans = (classes==0).nonzero().reshape(-1).numpy()
 		temp = []
 		for i in range(len(humans)):
-			if(scores[humans[i]]>self.SCORE_THRESHOLD and masks[i].area()/(im.shape[0] * im.shape[1])>self.AREA_FRACTION_THRESHOLD):
+			# if(scores[humans[i]]>self.SCORE_THRESHOLD and masks[i].area()/(im.shape[0] * im.shape[1])>self.AREA_FRACTION_THRESHOLD):
+			if(True):
 				temp.append(humans[i])
 
 		humans = temp
@@ -86,14 +80,14 @@ class detectron(object):
 				human_masks.append(masks[i])
 
 		# changing all boxes -> human boxes
-		a = boxes.tensor.numpy()
-		aa = np.array([])
-		for i in humans:
-			aa = np.append(aa, a[i])
-		r, c = len(humans), (aa.shape[0]//len(humans))
-		boxes.tensor = torch.from_numpy(aa.reshape(r, c))
-
-		return im, human_masks, boxes
+		# a = boxes.tensor.numpy()
+		# aa = np.array([])
+		# for i in humans:
+		# 	aa = np.append(aa, a[i])
+		# r, c = len(humans), (aa.shape[0]//len(humans))
+		# boxes.tensor = torch.from_numpy(aa.reshape(r, c))
+		# return im, human_masks, boxes
+		return im, human_masks
 
 	# boxes_array => a tuple containing x0, y0, x1, y1 coordinates, where x0 and y0 are the coordinates of the image's top left corner. x1 and y1 are the coordinates of the image's bottom right corner.
 	def bound_human_boxes(self, boxes):
