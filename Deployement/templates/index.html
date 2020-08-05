@@ -2,7 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Smart Filter by karan469</title>
+	<title>Smart Filter</title>
 	<link rel="stylesheet" href="header.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -21,7 +21,7 @@
 	        <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
 	        <li class="nav-item"><a href="https://karan469.github.io/Smart-Filter/" class="nav-link">About Project</a></li>
 	        <li class="nav-item dropdown"><a id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Contacts</a>
-	          <div aria-labelledby="navbarDropdown" class="dropdown-menu"><a href="https://karantanwar469.wixsite.com/home" class="dropdown-item">Website</a><a href="https://github.com/karan469" class="dropdown-item">Github Profile</a>
+	          <div aria-labelledby="navbarDropdown" class="dropdown-menu"><a href="https://karantanwar469.wixsite.com/home" class="dropdown-item">Personal Website</a><a href="https://github.com/karan469" class="dropdown-item">Github Profile</a>
 	            <div class="dropdown-divider"></div><a href="mailto://tkaran.iitd@gmail.com" class="dropdown-item">E-mail</a>
 	          </div>
 	        </li>
@@ -35,8 +35,8 @@
 	    <div class="d-flex h-100 text-center align-items-center">
 	      <div class="w-100 text-black">
 	        <h1 class="display-3">
-	        	Smart Filter
-	        	<small class="text-muted">from Karan Tanwar</small>
+	        	Smart Filter.
+	        	<small class="text-muted">Editing made simple.</small>
 	        </h1>
 	        <p class="lead mb-0">Image Segmentation using Detectron2 (facebook AI)</p>
 	      </div>
@@ -55,14 +55,14 @@
 			</h1>
 			<p class="lead">Image Segmentation using Detectron2 (facebook AI).</p> -->
 
-			<!-- <p>
-				{% with messages = get_flashed_messages() %}
-				  {% if messages %}
-			        Label: {{ messages[0] }}
-			        Accuracy: {{ messages[1] }}
-				  {% endif %}
-				{% endwith %}
-			</p> -->
+			{% with messages = get_flashed_messages() %}
+			  {% if(messages) %}
+						<div class="alert alert-warning" role="alert">
+							Status: {{ messages[0] }}
+						</div>
+			  {% endif %}
+			{% endwith %}
+
 
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -70,36 +70,42 @@
 
 
 			<form method="post" action="/" enctype="multipart/form-data">
-				<h3>Select input file to upload</h3>
+				<h3>Upload Selfie</h3>
 
 				<div class="form-group">
 					<input type="file" name="file" autocomplete="off" required>
 				</div>
 
-				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<input type="radio" name="options" id="option1" value="without"> Without Background </input><br>
+				<input type="radio" name="options" id="option2" value="custom"> Custom Background </input><br>
+				<input type="radio" name="options" id="option3" value="unsplash"> Background using Unsplash API </input><br>
+
+				<!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
 				  <label class="btn btn-outline-secondary active">
-				    <input onclick="document.getElementById('bg-file').disabled = true; document.getElementById('params').disabled = true;" type="radio" name="options" id="option1" autocomplete="off" checked> Without Background
+				    <input type="radio" name="options" id="option1" autocomplete="off" checked> Without Background
 				  </label>
 				  <label class="btn btn-outline-secondary">
-				    <input onclick="document.getElementById('bg-file').removeAttribute('disabled'); document.getElementById('params').setAttribute('disabled');" type="radio" name="options" id="option2" autocomplete="off"> Custom Background
+				    <input type="radio" name="options" id="option2" autocomplete="off"> Custom Background
 				  </label>
 				  <label class="btn btn-outline-secondary">
-				    <input onclick="document.getElementById('bg-file').disabled = true; document.getElementById('params').disabled = false;" type="radio" name="options" id="option3" autocomplete="off"> Background using Unsplash API
+				    <input  type="radio" name="options" id="option3" autocomplete="off"> Background using Unsplash API
 				  </label>
-				</div>
+				</div> -->
 
 				<h3></h3>
 
 
-				<h3>Select background file to upload</h3>
+				<h3>Upload Background (if necessary)</h3>
 
+				<!-- <div class="custom-file mb-3"> -->
 				<div class="form-group">
-					<input id="bg-file" type="file" name="bg-file" autocomplete="off" required>
+					<input id="bg-file" type="file" name="bg-file" autocomplete="off">
 				</div>
+				<!-- </div> -->
 
 				<div class="form-group">
 					<label for="params">Parameters</label>
-					<input class="form-control" type="text" name="params" placeholder="texture,red" id="params" disabled="disabled">
+					<input class="form-control" type="text" name="params" placeholder="texture,red" id="params">
 				</div>
 
 				<div class="form-group">
@@ -107,14 +113,17 @@
 					<!-- <div class="dropdown">
 						<select name="isSmiling" id="isSmiling" onchange="showTextArea()" placeholder="Confirm"><option>No<option>Yes</select>
 					</div> -->
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+					<!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-outline-secondary active">
-					    <input type="radio" name="options" id="option1-smile" autocomplete="off" checked> Yes
+					    <input type="radio" name="options-smile" id="option1-smile" autocomplete="off" checked> Yes
 					  </label>
 					  <label class="btn btn-outline-secondary">
-					    <input type="radio" name="options" id="option2-smile" autocomplete="off"> No
+					    <input type="radio" name="options-smile" id="option2-smile" autocomplete="off"> No
 					  </label>
-					</div>
+					</div> -->
+					<input type="radio" name="options-face-features" id="option1-face-features" value="enable-face-features"> Enable </input><br>
+					<input type="radio" name="options-face-features" id="option2-face-features" value="disable-face-features"> Disable </input><br>
 				</div>
 
 				<div class="form-group">

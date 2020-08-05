@@ -18,3 +18,9 @@ def get_feature_1(model, filename):
     # DetectronObj = detectron()
     new_image = utils.feature_1(model, filename)
     return new_image
+
+def get_feature_2(detector, smile_detector, filename, bg_filename, category):
+    new_image = utils.feature_2(detector, smile_detector, filename, bg_filename, category)
+    if(new_image is None):
+        return None
+    return new_image

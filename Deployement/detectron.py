@@ -20,6 +20,7 @@ class detectron(object):
 	def __init__(self):
 		super(detectron, self).__init__()
 		self.modelname = "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
+		# self.modelname = "COCO-InstanceSegmentation/mask_rcnn_R_50_C4_1x.yaml"
 		self.predictor = None
 		self.SCORE_THRESHOLD = 0.7
 		self.AREA_FRACTION_THRESHOLD = 0.1
@@ -42,51 +43,37 @@ class detectron(object):
 	def return_attributes(self, path):
 		im = cv2.imread(path)
 		output = self.predictor(im)
+		print('STATUS: Detectron2 job done.')
 
-		# self.SCORE_THRESHOLD = 0.7
-		# AREA_FRACTION_THRESHOLD = 0.1
-
-		# instances = output['instances']
+		self.SCORE_THRESHOLD = 0.7
+		AREA_FRACTION_THRESHOLD = 0.1
 
 		# storing attributes
 		predictions = output["instances"].to("cpu")
-		# boxes = predictions.pred_boxes if predictions.has("pred_boxes") else None
-		# scores = predictions.scores if predictions.has("scores") else None
+		scores = predictions.scores if predictions.has("scores") else None
 		classes = predictions.pred_classes if predictions.has("pred_classes") else None
 
-		# v = Visualizer(im[:, :, ::-1], MetadataCatalog.get('coco_2017_train'), scale=0.3)
-		# print('v dims: ', v.output.height, v.output.width)
-		print('im dims: ', im.shape)
-
 		if predictions.has("pred_masks"):
-				masks = np.asarray(predictions.pred_masks)
-				masks = [GenericMask(x, im.shape[0], im.shape[1]) for x in masks]
+				masks = [GenericMask(x, im.shape[0], im.shape[1]) for x in np.asarray(predictions.pred_masks)]
 		else:
 			masks = None
 
 		humans = (classes==0).nonzero().reshape(-1).numpy()
+		if(humans.shape[0]==0):
+			return None
 		temp = []
 		for i in range(len(humans)):
-			# if(scores[humans[i]]>self.SCORE_THRESHOLD and masks[i].area()/(im.shape[0] * im.shape[1])>self.AREA_FRACTION_THRESHOLD):
-			if(True):
+			if(scores[humans[i]]>self.SCORE_THRESHOLD and masks[i].area()/(im.shape[0] * im.shape[1])>self.AREA_FRACTION_THRESHOLD):
+			# if(True):
 				temp.append(humans[i])
 
 		humans = temp
-
 		human_masks = []
 
 		for i in range(len(masks)):
 			if(i in humans):
 				human_masks.append(masks[i])
 
-		# changing all boxes -> human boxes
-		# a = boxes.tensor.numpy()
-		# aa = np.array([])
-		# for i in humans:
-		# 	aa = np.append(aa, a[i])
-		# r, c = len(humans), (aa.shape[0]//len(humans))
-		# boxes.tensor = torch.from_numpy(aa.reshape(r, c))
-		# return im, human_masks, boxes
 		return im, human_masks
 
 	# boxes_array => a tuple containing x0, y0, x1, y1 coordinates, where x0 and y0 are the coordinates of the image's top left corner. x1 and y1 are the coordinates of the image's bottom right corner.

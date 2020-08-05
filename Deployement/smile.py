@@ -3,8 +3,8 @@
 	please update the api to tensorflow.keras
 '''
 from facedetector import facedetector
-# import tensorflow as tf
-import keras
+import tensorflow as tf
+# import keras
 import cv2
 import numpy as np
 
@@ -14,9 +14,10 @@ class smiledetector(object):
 		super(smiledetector, self).__init__()
 		self.model = None
 		self.weights_filepath = arg
+		print('STATUS: Smile Detector loaded')
 
 	def _load_model(self):
-		model = keras.applications.ResNet50(
+		model = tf.keras.applications.ResNet50(
 			include_top=False,
 			weights=None,
 			input_tensor=None,
@@ -26,13 +27,13 @@ class smiledetector(object):
 		)
 		for layer in model.layers:
 			layer.trainable = True
-		x = keras.layers.Flatten()(model.output)
-		x = keras.layers.Dense(256, activation='relu')(x)
-		x = keras.layers.Dense(32, activation='relu')(x)
+		x = tf.keras.layers.Flatten()(model.output)
+		x = tf.keras.layers.Dense(256, activation='relu')(x)
+		x = tf.keras.layers.Dense(32, activation='relu')(x)
 
-		x = keras.layers.Dense(2, activation='softmax')(x)
+		x = tf.keras.layers.Dense(2, activation='softmax')(x)
 
-		model = keras.models.Model(model.input, x)
+		model = tf.keras.models.Model(model.input, x)
 
 		model.load_weights(self.weights_filepath)
 
@@ -71,7 +72,7 @@ class smiledetector(object):
 		res = self.model.predict(batch)
 
 		return res
-		
+
 if __name__ == '__main__':
 	detector = smiledetector('../../resnet50_smiledetection.h5')
 	print(detector._infer_image('./test2.jpg'))
