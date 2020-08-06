@@ -68,14 +68,23 @@ def feature_2(detector, smile_detector, filename, bg_filename, category):
 	else:
 		bg_resolution_string = str(im.shape[1])+'x'+str(im.shape[0])
 		bg = loadImage('https://source.unsplash.com/'+bg_resolution_string+'/?'+category)
+
 	print('STATUS: Background Image loaded')
 
+	h,w = final_mask.shape[0],final_mask.shape[1]
+
 	WHITE_BORDER_FRACTION = 0.07
+
 	if(bg is not None):
-		bg = bg[:im.shape[0], -im.shape[1]:, :]
+		bg = bg[:im.shape[0], -im.shape[1]:, :] # second check: no need tbh
+
+		# bg = bg[int(h*WHITE_BORDER_FRACTION):int((1-WHITE_BORDER_FRACTION)*h), int(h*WHITE_BORDER_FRACTION):int((1-WHITE_BORDER_FRACTION)*h),:]
+		# bg = np.pad(bg, pad_width = int(h*(1-WHITE_BORDER_FRACTION)))
+
 		print('im.shape = ', im.shape)
 		print('bg.shape = ', bg.shape)
 		print('final_mask.shape = ', final_mask.shape)
+
 		im[:,:,0] = np.where(final_mask!=0, im[:,:,0], bg[:,:,0])
 		im[:,:,1] = np.where(final_mask!=0, im[:,:,1], bg[:,:,1])
 		im[:,:,2] = np.where(final_mask!=0, im[:,:,2], bg[:,:,2])
@@ -84,7 +93,7 @@ def feature_2(detector, smile_detector, filename, bg_filename, category):
 		for i in range(final_mask.shape[0]):
 			for j in range(final_mask.shape[1]):
 				if(final_mask[i][j]==0):
-					if(i>int(final_mask.shape[0]*WHITE_BORDER_FRACTION) and i<int((1-WHITE_BORDER_FRACTION)*final_mask.shape[0]) and j>int(final_mask.shape[1]*WHITE_BORDER_FRACTION) and j<int((1-WHITE_BORDER_FRACTION)*final_mask.shape[1])):
+					if(i>int(h*WHITE_BORDER_FRACTION) and i<int((1-WHITE_BORDER_FRACTION)*h) and j>int(w*WHITE_BORDER_FRACTION) and j<int((1-WHITE_BORDER_FRACTION)*w)):
 						red = 255*(1-(j/final_mask.shape[1]))
 						im[i][j] = [red, green, 255]
 					else:

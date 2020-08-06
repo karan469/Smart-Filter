@@ -100,4 +100,4 @@ def submit_file():
 
             return response
 
-app.run(debug=False)
+app.run(debug=True)
