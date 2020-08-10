@@ -1,0 +1,8 @@
+title: Smart Filter
+description: This repository aims to create smart filters, majorly for selfies.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
