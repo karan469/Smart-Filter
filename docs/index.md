@@ -104,6 +104,7 @@ localise the faces in image.
     temp = temp.reshape(1, 64, 64, 3)
     probability = smile_predictor.predict(temp)
 ```
+
 Image 1                    |        Image 2            |         Image 3
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://raw.githubusercontent.com/karan469/Smart-Filter/master/results/2.png)  |  ![](https://raw.githubusercontent.com/karan469/Smart-Filter/master/results/1.png) | ![](https://raw.githubusercontent.com/karan469/Smart-Filter/master/results/3.png)
