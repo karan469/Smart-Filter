@@ -36,6 +36,7 @@ There are 2 parts to this project:
 This API can be used to remove background and place either a fixed
 preset, or another aesthetically good looking background using
 parameters given by user.
+
 ```python
     path = '/content/'
     #returns necessary attrbutes and results from model output
@@ -62,6 +63,7 @@ Original Image             |  Background removal using Semantic Segmentation
 This model is created using 500 images with 1100 instances on faces in the [dataset](https://www.kaggle.com/dataturks/face-detection-in-images)
 Thus, the learning is not as rigorous as it could be. But I have achieved an **F1 score of 0.702** which was good enough.
 > Insert model quality metrics.
+
 ```python
     def return_face_detection_predictor(filename):
         from detectron2.config import get_cfg
@@ -98,6 +100,7 @@ features based frontal face cascade or another pretrained CNN model to
 localise the faces in image.
 
 > Insert model quality metrics.
+
 ```python
     smile_predictor = SmileModel('/content/drive/My Drive/Colab Notebooks/smiledetection.h5')
     temp = cv2.resize(temp, dsize=(64, 64))
