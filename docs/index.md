@@ -55,7 +55,7 @@ parameters given by user.
 
 Original Image             |  Background removal using Semantic Segmentation
 :-------------------------:|:-------------------------:
-![](/results/15.jpg)  |  ![](/results/16.jpg)
+![](../results/15.jpg)  |  ![](../results/16.jpg)
 
 ### Face detection using transfer learning on detectron2
 
@@ -82,7 +82,7 @@ Thus, the learning is not as rigorous as it could be. But I have achieved an **F
 
 Image 1             |  Image 2
 :-------------------------:|:-------------------------:
-![](/results/5.png)  |  ![](/results/6.png)
+![](../results/5.png)  |  ![](../results/6.png)
 
 Right now, Face Filter is used primarily for selfies thus, the achieved results are satisfactory.
 
@@ -106,21 +106,21 @@ localise the faces in image.
 ```
 Image 1             |  Image 2 | Image 3
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/results/2.png)  |  ![](/results/1.png) | ![](/results/3.png)
+![](../results/2.png)  |  ![](../results/1.png) | ![](../results/3.png)
 
 [](#smart-filters-examples)Smart Filters examples
 
-Input           |  Output
+Input           |  Output with custom background
 :-------------------------:|:-------------------------:
-![](/results/9.png) | ![](/results/11.png)
+![](../results/9.png) | ![](../results/11.png)
 
 Input           |  Output
 :-------------------------:|:-------------------------:
-![](/results/4.png) | ![](/results/8.png)
+![](../results/4.png) | ![](../results/8.png)
 
 Input          |  Output
 :-------------------------:|:-------------------------:
-![](/results/13.png) | ![](/results/7.png)
+![](../results/13.png) | ![](../results/7.png)
 
 Last image is created by giving 'rainbow,texture' as parameters to background selection.
 > Insert code snippet.
