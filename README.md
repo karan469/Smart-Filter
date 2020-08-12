@@ -2,7 +2,7 @@
 
 This is the repository for Smart-Filter, a deep learning open source web app. This repository provides end-to-end pipeline from model architecture of face detection using transfer learning to deployment of a web application using Docker container.  
   
-![**Visit the official repository webpage!**](https://karan469.github.io/Smart-Filter/)
+**Visit the official repository webpage:** https://karan469.github.io/Smart-Filter/
 
 **Web app soon to be deployed.**
 
