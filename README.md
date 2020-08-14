@@ -13,6 +13,8 @@ This is the repository for Smart-Filter, a deep learning open source web app. Th
 - detectron2-gpu (for training): python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html
 - CUDA (10.1)
 
+*Caution*: Specified softwares must be installed in their correct versions. Mentioned versions are compatible with each other. 
+
 ## Subdirectories
 
 **Deployment/**  
