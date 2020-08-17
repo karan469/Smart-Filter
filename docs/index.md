@@ -17,9 +17,10 @@ WEB/MOBILE APP USING AWS EC2, I WILL RELEASE THE SOURCE CODE.**
 
 Smart filter uses machine **learning to curate image specific filters and background**. There will be little to no input of user in deciding the final image. Smart filter is a useful tool to interact and share pictures across social media. 100s of thousands of images are uploaded every single minute. These picures take many forms such as stories, posts, comments, stickers and more.
 
-There are 2 parts to this project:
+There are 3 parts to this project:
 - Semantic Segmentation and face detection using [Detectron2 (Facebook AI)](https://github.com/facebookresearch/detectron2)
 - Facial features detection (smile as of now).
+- Create a docker image for the web app and deployment of the same at heroku.
 
 ## Requirements
 
