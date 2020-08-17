@@ -24,11 +24,11 @@ There are 3 parts to this project:
 
 ## Requirements
 
-1.  detectron2
-2.  pytorch
-3.  cuda 10.1
-4.  tensorflow
-5.  torchvision
+- tensorflow-cpu==2.2
+- pytorch==1.6.0+cpu: pip install torch==1.6.0+cpu torchvision==0.7.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
+- detectron2-cpu (for inference): python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.6/index.html
+- detectron2-gpu (for training): python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html
+- CUDA (10.1)
 
 ## Examples
 
