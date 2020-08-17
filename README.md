@@ -41,4 +41,4 @@ Contains demo images as examples of working prototype of final web application c
 
 ## Contact  
 For more information visit the official documentations of different frameworks.  
-For any queries, email ![Karan Tanwar](mailto://tkaran.iitd@gmail.com).
+For any queries, email me at mailto://tkaran.iitd@gmail.com
