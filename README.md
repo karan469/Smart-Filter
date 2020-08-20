@@ -18,7 +18,7 @@ This is the repository for Smart-Filter, a deep learning open source web app. Th
 ## Subdirectories
 
 **Deployment/**  
-Web application for deploying a trained set of models on Flask using Docker containers. To read more about Docker, visit ![official Docker documentation](https://docs.docker.com/).
+Web application for deploying a trained set of models on Flask using Docker containers. To read more about Docker, visit official Docker documentation: https://docs.docker.com/
   - templates/
   - uploads/
   - app.py
