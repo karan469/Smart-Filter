@@ -1,4 +1,4 @@
-# Smart Filter: Automation meets face filters
+# Automation meets face filters
 
 This repository aims to create smart filters, majorly for selfies.
 
