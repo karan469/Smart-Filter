@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.secret_key = "secret key"
 app.DetectronObj = detectron()
 # app.smile_detector = smiledetector('../../resnet50_smiledetection.h5')
-app.smile_detector = smiledetector('../../smiledetection.h5')
+app.smile_detector = smiledetector('./models/smiledetection.h5')
 
 app.config['UPLOAD_FOLDER'] = './uploads'
 
@@ -100,4 +100,6 @@ def submit_file():
 
             return response
 
-app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
